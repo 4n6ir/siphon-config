@@ -6,11 +6,11 @@ A two-stage configuration script to install and configure a stand-alone packet c
 - suricata - https://suricata.readthedocs.io/en/suricata-6.0.0/install.html#ubuntu
 - zeek - https://github.com/zeek/zeek/wiki/Binary-Packages
 ### CONFIGURATION
-The af_packet interface is a device-level packet socket that scales processing across threads to form a fanout group through the Suricata and Zeek configuration files.
+The af_packet interface is a device-level packet socket that scales processing across threads to form a fanout group to the Suricata and Zeek engines.
 - /etc/suricata/suricata.yaml
 - /opt/zeek/etc/node.cfg
 ### S3 BUCKET ARCHIVE
-AWS CLI version 2 is used to sync compressed log files from the local EBS volume to the S3 bucket every 15 minutes.
+AWS CLI version 2 is used to sync the compressed log files from the local EBS volume to the S3 bucket every 15 minutes.
 ### DISK CLEANUP
 Unix commands are executed every hour to keep only 7 days of logs available on the local EC2 instance.
 ### IDS UPDATES
