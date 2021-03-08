@@ -41,8 +41,8 @@ sudo apt-get install suricata -y
 # https://github.com/J-Gras/zeek-af_packet-plugin
 #
 
-cd /tmp && git clone https://github.com/J-Gras/zeek-af_packet-plugin.git
-cd /tmp/zeek-af_packet-plugin && export PATH=/opt/zeek/bin:$PATH && ./configure && make && make install
+cd /tmp && wget https://github.com/J-Gras/zeek-af_packet-plugin/archive/2.1.2.zip && unzip /tmp/2.1.2.zip
+cd /tmp/zeek-af_packet-plugin-2.1.2 && export PATH=/opt/zeek/bin:$PATH && ./configure && make && make install
 /opt/zeek/bin/zeek -NN Zeek::AF_Packet
 
 #
