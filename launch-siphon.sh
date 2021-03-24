@@ -8,7 +8,7 @@
 
 apt-get update
 apt-get upgrade -y
-apt-get install cmake gdb python3-pip unzip -y
+apt-get install cmake gdb libpython2.7 python3-pip unzip -y
 wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -P /tmp/
 unzip /tmp/awscli-exe-linux-x86_64.zip -d /tmp
 /tmp/aws/install

@@ -107,3 +107,4 @@ f.write('#')
 f.close()
 
 os.system('systemctl restart cron')
+os.system('systemctl restart suricata')
