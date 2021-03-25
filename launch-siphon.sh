@@ -50,5 +50,5 @@ cd /tmp/zeek-af_packet-plugin-2.1.2 && export PATH=/opt/zeek/bin:$PATH && ./conf
 #
 
 pip3 install boto3
-wget https://github.com/4n6ir/siphon-config/releases/download/v0.0.2-python/siphon-config.py -P /tmp/
+wget https://github.com/4n6ir/siphon-config/releases/download/v0.0.3-python/siphon-config.py -P /tmp/
 /usr/bin/python3 /tmp/siphon-config.py
