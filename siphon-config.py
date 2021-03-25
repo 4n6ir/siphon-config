@@ -15,6 +15,12 @@ for sock in socks:
     if sock[1] != 'ens5' and sock[1] != 'lo':
         inet.append(sock[1])
 
+### CONFIGURED ENI ###
+
+for net in inet:
+    os.system('/usr/sbin/ip link set ens'+net[3:]+' up')
+    os.system('/usr/sbin/ip link set ens'+net[3:]+' mtu 9001')
+
 ### ZEEK CONFIGURATION ###
 
 os.system('cp /opt/zeek/etc/node.cfg /opt/zeek/etc/node.cfg.bkp')
@@ -107,4 +113,39 @@ f.write('#')
 f.close()
 
 os.system('systemctl restart cron')
-os.system('systemctl restart suricata')
+
+### CONFIGURED STARTUP ###
+
+f = open('/etc/systemd/system/rc-local.service','w')
+
+f.write('[Unit]\n')
+f.write('Description=/etc/rc.local Compatibility\n')
+f.write('ConditionPathExists=/etc/rc.local\n\n')
+f.write('[Service]\n')
+f.write('Type=forking\n')
+f.write('ExecStart=/etc/rc.local start\n')
+f.write('TimeoutSec=0\n')
+f.write('StandardOutput=tty\n')
+f.write('RemainAfterExit=yes\n')
+f.write('SysVStartPriority=99\n\n')
+f.write('[Install]\n')
+f.write('WantedBy=multi-user.target\n')
+
+f.close()
+
+f = open('/etc/rc.local','w')
+
+f.write('#!/usr/bin/bash\n')
+
+for net in inet:
+    f.write('/usr/sbin/ip link set ens'+net[3:]+' up\n')
+    f.write('/usr/sbin/ip link set ens'+net[3:]+' mtu 9001\n')
+
+f.write('/opt/zeek/bin/zeekctl start\n')
+f.write('exit 0\n')
+
+f.close()
+
+os.system('chmod +x /etc/rc.local')
+os.system('systemctl enable rc-local')
+os.system('systemctl start rc-local')
