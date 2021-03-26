@@ -149,3 +149,7 @@ f.close()
 os.system('chmod +x /etc/rc.local')
 os.system('systemctl enable rc-local')
 os.system('systemctl start rc-local')
+
+### REBOOT INSTALL ###
+
+os.system('init 6')
