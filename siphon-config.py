@@ -19,7 +19,8 @@ for sock in socks:
 
 for net in inet:
     os.system('/usr/sbin/ip link set ens'+net[3:]+' up')
-    os.system('/usr/sbin/ip link set ens'+net[3:]+' mtu 9001')
+    os.system('/usr/sbin/ip link set ens'+net[3:]+' mtu 1575')
+    os.system('/usr/sbin/ethtool --offload ens'+net[3:]+' tx off')
 
 ### ZEEK CONFIGURATION ###
 
@@ -139,7 +140,8 @@ f.write('#!/usr/bin/bash\n')
 
 for net in inet:
     f.write('/usr/sbin/ip link set ens'+net[3:]+' up\n')
-    f.write('/usr/sbin/ip link set ens'+net[3:]+' mtu 9001\n')
+    f.write('/usr/sbin/ip link set ens'+net[3:]+' mtu 1575\n')
+    f.write('/usr/sbin/ethtool --offload ens'+net[3:]+' tx off\n')
 
 f.write('/opt/zeek/bin/zeekctl start\n')
 f.write('exit 0\n')
